@@ -1,0 +1,25 @@
+pipeline {
+    agent { label 'python3'}
+    stages {
+        stage("Rename build"){
+            steps{
+                script{
+                    currentBuild.displayName = "Попытка #${currentBuild.id}"
+                    currentBuild.description = "<a href=${currentBuild.absoluteUrl}>Build ${currentBuild.id}</a>"
+                }
+            }
+        }
+        stage("Run test") {
+            steps {
+                sh 'python3 -m pip install -r requirements.txt'
+                sh 'python3 -m pytest -v --junitxml=report.xml .'
+            }
+        }
+    }
+    post {
+        always {
+            archive '*.xml'
+            junit allowEmptyResults: true, testResults: 'report.xml'
+        }
+    }
+}

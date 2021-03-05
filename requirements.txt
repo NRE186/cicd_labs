@@ -1,0 +1,4 @@
+inflect
+peewee
+prettytable
+pytest
