@@ -70,14 +70,14 @@ def fill():
     db.close()
 
 
-def help_():
+def help_info():
     print(
         """
-Запуск программы командой `>> python app.py [параметр]`
+Запуск программы командой >> python app.py [параметр]
 Параметры:
-– `init` инициализирует базу данных
-– `fill` заполнит базу данных тестовыми значениями
-– `show [tablename]` выведет указанную таблицу"""
+– init инициализирует базу данных
+– fill заполнит базу данных тестовыми значениями
+– show [название_таблицы] выведет указанную таблицу"""
     )
     exit()
 
@@ -119,7 +119,7 @@ if __name__ == "__main__":
     try:
         arg = argv[1]
     except:
-        help_()
+        help_info()
 
     if arg == "init":
         init()
@@ -132,10 +132,10 @@ if __name__ == "__main__":
             elif argv[2].lower() == "orders":
                 show_orders(Orders)
             else:
-                print("This table does not exist")
+                print("Некотректное название таблицы")
         except:
-            print("Please enter the table name")
+            print("Введите название таблицы")
     else:
-        help_()
+        help_info()
 
     db.close()

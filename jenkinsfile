@@ -1,15 +1,14 @@
 pipeline {
     agent { label 'python3'}
     stages {
-        stage("Rename build"){
+        stage("Rename name of builds"){
             steps{
                 script{
-                    currentBuild.displayName = "Попытка #${currentBuild.id}"
-                    currentBuild.description = "<a href=${currentBuild.absoluteUrl}>Build ${currentBuild.id}</a>"
+                    currentBuild.displayName = "Попытка №${currentBuild.id}"
                 }
             }
         }
-        stage("Run test") {
+        stage("Run tests") {
             steps {
                 sh 'python3 -m pip install -r requirements.txt'
                 sh 'python3 -m pytest -v --junitxml=report.xml .'
